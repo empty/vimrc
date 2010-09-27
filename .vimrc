@@ -59,10 +59,11 @@ nmap <tab> %
 vmap <tab> %
 
 " Soft/hard wrapping
-set wrap
+set nowrap
 set textwidth=79
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=79
+set sidescroll=5
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set list
@@ -76,7 +77,7 @@ colorscheme delek
 " NERD Tree
 map <F2> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
-let NERDTreeWinPos="right"
+"let NERDTreeWinPos="right"
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.bak$', '\~$']
 
 " Use the damn hjkl keys
@@ -97,11 +98,14 @@ map <C-l> <C-w>l
 map <leader>w <C-w>v<C-w>l
 
 " Folding
-set foldlevelstart=0
+set foldlevelstart=20
 nnoremap <Space> za
 vnoremap <Space> za
 au BufNewFile,BufRead *.html
 map <leader>ft Vatzf
+autocmd Syntax c,cpp,vim,xml,html,xhtml,py setlocal foldmethod=syntax
+autocmd Syntax c,cpp,vim,xml,html,xhtml,py,perl normal zR
+
 
 function! MyFoldText()
     let line = getline(v:foldstart)
@@ -254,11 +258,10 @@ if has('gui_running')
 
     if has("gui_macvim")
         macmenu &File.New\ Tab key=<nop>
-        map <leader>t <Plug>PeepOpen
     end
 
     let g:sparkupExecuteMapping = '<D-e>'
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
-:autocmd VimEnter * NERDTree
+":autocmd VimEnter * NERDTree
