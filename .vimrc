@@ -37,9 +37,9 @@ set statusline=%F%m%r%h%w\ [TYPE=%Y\ %{&ff}]\ [%l/%L\ (%p%%)]\ Col:%c
 
 
 " Backups
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap//   " swap files
-set backup                        " enable backups
+set backupdir=~/.vim/tmp/backup/ " backups
+set directory=~/.vim/tmp/swap/   " swap files
+set backup                       " enable backups
 
 " Leader
 let mapleader = ","
@@ -106,6 +106,8 @@ map <leader>ft Vatzf
 autocmd Syntax c,cpp,vim,xml,html,xhtml,py setlocal foldmethod=syntax
 autocmd Syntax c,cpp,vim,xml,html,xhtml,py,perl normal zR
 
+" Reformat xml documents
+au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 function! MyFoldText()
     let line = getline(v:foldstart)
@@ -144,6 +146,8 @@ map <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 " Clean whitespace
 map <leader>x :%s/\s\+$//<cr>:let @/=''<CR>
+map <leader>b :%s/\s\+$//<cr>:let @/=''<CR>
+
 
 " Exuberant ctags!
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
@@ -239,7 +243,7 @@ let g:atia_attributes_complete = 0
 nnoremap ; :
 
 " Save when losing focus
-au FocusLost * :wa
+"au FocusLost * :wa
 
 " Stop it, hash key
 inoremap # X<BS>#
